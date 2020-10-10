@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Kiertotalo.us</title>
+		<style>
+			body { margin: 0; }
+			canvas { display: block; }
+		</style>
+    </head>
+    <body style="background-color: black;">
+        <script type="module">
+            import * as THREE from 'https://unpkg.com/three@0.121.1/build/three.module.js';
+            import {
+                OBJLoader2
+            } from 'https://unpkg.com/three@0.121.1/examples/jsm/loaders/OBJLoader2.js';
+            import {
+                FlyControls
+            } from 'https://unpkg.com/three@0.121.1/examples/jsm/controls/FlyControls.js';
+            import {
+                MTLLoader
+            } from 'https://unpkg.com/three@0.121.1/examples/jsm/loaders/MTLLoader.js';
+            import {
+                MtlObjBridge
+            } from 'https://unpkg.com/three@0.121.1/examples/jsm/loaders/obj2/bridge/MtlObjBridge.js';
+
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+
+            const renderer = new THREE.WebGLRenderer();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            document.body.appendChild(renderer.domElement);
+
+            let house;
+
+
+            const mtlLoader = new MTLLoader();
+            mtlLoader.load('house_mapping.mtl', (mtlParseResult) => {
+                const objLoader = new OBJLoader2();
+                const materials = MtlObjBridge.addMaterialsFromMtlLoader(mtlParseResult);
+                objLoader.addMaterials(materials);
+                objLoader.load('house.obj', (root) => {
+                    house = root;
+                    house.rotateX(3.14 / 180 * -90)
+                    scene.add(house);
+
+                });
+            });
+
+            const color = 0xFFFFFF;
+            const intensity = 1;
+            const light = new THREE.DirectionalLight(color, intensity);
+            light.position.set(5, 10, 5);
+
+            const light2 = new THREE.DirectionalLight(color, 0.2);
+            light2.position.set(0, 0, 5);
+
+            scene.add(light);
+            scene.add(light.target);
+            scene.add(light2);
+            scene.add(light2.target);
+
+            camera.position.z = 25;
+            camera.position.y = 5;
+
+            const clock = new THREE.Clock();
+
+            const animate = function() {
+                requestAnimationFrame(animate);
+
+                const delta = clock.getDelta();
+                // controls.update( delta );
+                house.rotateZ(3 * delta)
+                renderer.render(scene, camera);
+            };
+
+            animate();
+        </script>
+
+		<!-- <script>
+
+		</script> -->
+	</body>
+</html>
