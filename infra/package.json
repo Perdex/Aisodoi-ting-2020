@@ -1,0 +1,11 @@
+{
+    "name": "ting2020",
+    "devDependencies": {
+        "@types/node": "^10.0.0"
+    },
+    "dependencies": {
+        "@pulumi/digitalocean": "^2.8.0",
+        "@pulumi/kubernetes": "^2.6.2",
+        "@pulumi/pulumi": "^2.0.0"
+    }
+}

@@ -1,0 +1,226 @@
+---
+# Source: kubed/templates/serviceaccount.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: kubed
+  namespace: kube-system
+  labels:
+    helm.sh/chart: kubed-v0.12.0
+    app.kubernetes.io/name: kubed
+    app.kubernetes.io/instance: kubed
+    app.kubernetes.io/version: "v0.12.0"
+    app.kubernetes.io/managed-by: Helm
+---
+# Source: kubed/templates/apiregistration.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: kubed-apiserver-cert
+  namespace: kube-system
+  labels:
+    helm.sh/chart: kubed-v0.12.0
+    app.kubernetes.io/name: kubed
+    app.kubernetes.io/instance: kubed
+    app.kubernetes.io/version: "v0.12.0"
+    app.kubernetes.io/managed-by: Helm
+type: Opaque
+data:
+  tls.crt: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURIRENDQWdTZ0F3SUJBZ0lSQUxpMnp0M0VEeHRWRmkzSVpUZ0FGbkF3RFFZSktvWklodmNOQVFFTEJRQXcKRFRFTE1Ba0dBMVVFQXhNQ1kyRXdIaGNOTWpBeE1ERXdNRGN4TlRVMFdoY05NekF4TURBNE1EY3hOVFUwV2pBUQpNUTR3REFZRFZRUURFd1ZyZFdKbFpEQ0NBU0l3RFFZSktvWklodmNOQVFFQkJRQURnZ0VQQURDQ0FRb0NnZ0VCCkFNdmV1ZUxQYzhFOTNmZGg0THRhQWR5M3YwMDNadnkwNmFFb2FpNitHeUZNY1BwWDNOY0ZKQkFEL3g0R3RrbTQKc1dvODY3KzM2ZG80QU5pOUtoVXVheTNtTjkxd0V3U1ZKUjViOUphTlZWQ2RwbjlkV0lVbWMvcmlUZ3U1YUpTYgphYTBLekM4anBFeTZ3ZEMxRE1SMS9ZUEFsak1EbnM1Z09WaFlYK3dNT0VMVmQyME40QlN0Ym5qMnFqVDVMVWdlCjJ4OUJJbFppUkR3bkRkU3NmVTRNZko1OWFtaG9tU0UzZklQdDdGWTBrZFIvZFJMeXA5a2ZNVmNDcjliOW91N2kKZ0tXeE1hb3k2bW9XVVJ0Mm5wSVFIOFVoTmZCTFVpZXBYUWpQZ0QzcTV0TTAvOVk2aUJ6ZDQrbWxlQWF2OTZyNAphRDE1bHNmMm9yV3pCNEJXeTh2aHZrc0NBd0VBQWFOME1ISXdEZ1lEVlIwUEFRSC9CQVFEQWdXZ01CMEdBMVVkCkpRUVdNQlFHQ0NzR0FRVUZCd01CQmdnckJnRUZCUWNEQWpBTUJnTlZIUk1CQWY4RUFqQUFNRE1HQTFVZEVRUXMKTUNxQ0VXdDFZbVZrTG10MVltVXRjM2x6ZEdWdGdoVnJkV0psWkM1cmRXSmxMWE41YzNSbGJTNXpkbU13RFFZSgpLb1pJaHZjTkFRRUxCUUFEZ2dFQkFIdkhVSzJwVUhobnhodjB1bUVmZEYxYjY2T0tHTE00eXloNmJlbmtQNFpKCjZCRmMrZUVyV01RUlIwdlV3bVFQd0JZR0JUbzl6WDRWeDRtaTBpcU52SmNCdjBWdTk4NGN2dHpTMTJlaHR6M2cKZktaalAyTFN1N003Z0ROMzV4eXZKQnBOd2xnR204cjh3NVRkdDR4UXAwUVlHMjFoeUphRndZeHRqSUw5SGVhTgpFRFFSWEFKUjBOeTdPTmluSzVrWGd6d0k2bEloQTZGaElUQ3cwVjd3eFRKN2l5YUdnVnBYRGJsUnVlaU9OdVhLCkJxWS90VlE1TWRDNzh6M1BZZ05sdkFFYTUyU1RzVyt0WkdiaHFvS0FiMktGU1RXL3dQRncreUlwQkI4S1RqSFkKN0hMMFZWTWg2b0ViZXEwTnp2UFRBckF4bDBIOUdRalVBNldjSDFaTFNLcz0KLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQo=
+  tls.key: LS0tLS1CRUdJTiBSU0EgUFJJVkFURSBLRVktLS0tLQpNSUlFcFFJQkFBS0NBUUVBeTk2NTRzOXp3VDNkOTJIZ3Uxb0IzTGUvVFRkbS9MVHBvU2hxTHI0YklVeHcrbGZjCjF3VWtFQVAvSGdhMlNiaXhhanpydjdmcDJqZ0EyTDBxRlM1ckxlWTMzWEFUQkpVbEhsdjBsbzFWVUoybWYxMVkKaFNaeit1Sk9DN2xvbEp0cHJRck1MeU9rVExyQjBMVU14SFg5ZzhDV013T2V6bUE1V0ZoZjdBdzRRdFYzYlEzZwpGSzF1ZVBhcU5Qa3RTQjdiSDBFaVZtSkVQQ2NOMUt4OVRneDhubjFxYUdpWklUZDhnKzNzVmpTUjFIOTFFdktuCjJSOHhWd0t2MXYyaTd1S0FwYkV4cWpMcWFoWlJHM2Fla2hBZnhTRTE4RXRTSjZsZENNK0FQZXJtMHpULzFqcUkKSE4zajZhVjRCcS8zcXZob1BYbVd4L2FpdGJNSGdGYkx5K0crU3dJREFRQUJBb0lCQVFDSVBmY3h5UHVObDUrLwowK3hRcUN6NGFOOXlaZVR3V3FLTExhd1FRc0YwdGxZR0p6T1Jpb0Q0SndPVitGeFgxaExTY1pZRzBJeDZaZFRECkExK2RPaUVzVWw3aElDWEZlVHFPR0Z2VFJPNVA2cHM3SUpHb29mTCtKY0NNZTBLVmxXckExcWR2bFQwV2ZmUksKV3NRR2d1ZUI1ZkU2ZEYvcmdVaXhicFhqOUtLZ25rQkg3eE52MnR6OUo4RkdtbVhGZzNnMVh0akV0aTMrUnFvMgpuR1VkVzlWbzlOajE1V2oxdmdqOXp3d05EMzltaWdiL3c5b1V3Vys3SG82TkMyWkRJSmRPbGdvUGRaZ0hla2RUClJiSnZDNGxjWk9UMFNNQWV3djBYSUhvb2toTWIybWo1K1poYlYrTGdialc2cjVWc3V6UmF3VGRIdjRvdm4waU8KSWNZWTNFR1pBb0dCQU9nbStlTlNyS2FKejZkUjRNTExFN1J0a0ZzcStweThhS2ZRQ0dSSkJFTllJMVZ0b2FxUApzTWFXV3FxSDVleUhOaHpCV3RXWUZZQjBuVmozNXNRQUZWNVpmbjY0QzluaDRJeGlGeUl0S2RIUmUxdVNsNzFMClAxb2xvOGd5UEpOaGlrQWc3T0RYY3NBQjVnaHE3bldwR05qMnRrNVRSc3MyNEpzWnhQZGg2ZlNGQW9HQkFPRFAKLzRWejhIZlZDQ3QweUNMeHdKTVRaMUM3WEFxdFJJd3o3N2ZROXI0RGR0NnJBQlN0amNGd0kxbzg3R2RSMlZ4SQpiMEJERmlObU5zZGdGNUlKYThUUExoSmI5U2xrSFV2RWFKT3J5SzlNR2R3UTMrUWx2eWlQQnNzZnVQMUg5WFRxCjB2TTVNR1V0R3hmREpQOWF6YlZGSnU1UlpwaTZyMnZ4TzNGa3RnaVBBb0dCQU9DSlNpcFhQVXY2Z05DcGZjV0sKRzIzb2hyWFc5UHdCc3d1VVIzbVBzY0xkRFpmRDZKaUtVQVZUU1RBbEx2bzlzTlhSSWVUekt1REthYUd5YkExbwpzMEpGTnZhalZqc1BvRnJIU082eVZmOXRLRzNpZEVjTzc2Qm1SV29OUk0rYmlOY0x3WENha1k4cWh1M2ZWdktRCmNjcnZuRlpYYjJKL21uQUpWWnVicFdmdEFvR0FGdmdwZTFFbE9Ka2poSTBpQmEvOXBRbE9mUWtubGsrdHVVVjEKTUtyQkN4ai9oRENraVhoU0MzbVJveDZtYU1nTUZVbXhWRGVHZzRkbUFXam4vNXZHend6OEFCUTFNRTF5VU5ONAplOTRKV3gvRFpLQzB2M0s3M1VEL3lMRXREWFBVdUdWbHVFUVhsYjdPRGRkNmFEeTIxOWFBNjhpVld2VjRCdWRXCjAzY2V3akVDZ1lFQXV2UnlkdWxRemp2eEZWZXR1aEljd3EzR2NkY1Y2a1Y3TG91TlFvUDRHelE0UE96N0hWVEIKdUkvYTZCNEloMzAyVmNEaTdBMEFUbVRKU1BLVmN2QnFjTzRnNVM5TUE5RnRaTTdwajlRbjlHbVFTdENaVU1TbQp5YW45SGc5cjhBdEdKUnRPR2hWWTB3WTNCRWY3TkF2QnhFcDJUeUR3UHhMdDZmem1iZHBMS0d3PQotLS0tLUVORCBSU0EgUFJJVkFURSBLRVktLS0tLQo=
+---
+# Source: kubed/templates/secret.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: kubed
+  namespace: kube-system
+  labels:
+    helm.sh/chart: kubed-v0.12.0
+    app.kubernetes.io/name: kubed
+    app.kubernetes.io/instance: kubed
+    app.kubernetes.io/version: "v0.12.0"
+    app.kubernetes.io/managed-by: Helm
+data:
+---
+# Source: kubed/templates/cluster-role.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: kubed
+  labels:
+    helm.sh/chart: kubed-v0.12.0
+    app.kubernetes.io/name: kubed
+    app.kubernetes.io/instance: kubed
+    app.kubernetes.io/version: "v0.12.0"
+    app.kubernetes.io/managed-by: Helm
+rules:
+- apiGroups: [""]
+  resources:
+  - configmaps
+  - secrets
+  verbs: ["get", "create", "patch", "delete", "list", "watch"]
+- apiGroups: [""]
+  resources:
+  - namespaces
+  verbs: ["get", "list", "watch"]
+- apiGroups: [""]
+  resources:
+  - nodes
+  verbs: ["list"]
+- apiGroups: [""]
+  resources:
+  - events
+  verbs: ["create"]
+---
+# Source: kubed/templates/apiregistration.yaml
+# to delegate authentication and authorization
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: kubed-apiserver-auth-delegator
+  labels:
+    helm.sh/chart: kubed-v0.12.0
+    app.kubernetes.io/name: kubed
+    app.kubernetes.io/instance: kubed
+    app.kubernetes.io/version: "v0.12.0"
+    app.kubernetes.io/managed-by: Helm
+roleRef:
+  kind: ClusterRole
+  apiGroup: rbac.authorization.k8s.io
+  name: system:auth-delegator
+subjects:
+- kind: ServiceAccount
+  name: kubed
+  namespace: kube-system
+---
+# Source: kubed/templates/cluster-role-binding.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: kubed
+  labels:
+    helm.sh/chart: kubed-v0.12.0
+    app.kubernetes.io/name: kubed
+    app.kubernetes.io/instance: kubed
+    app.kubernetes.io/version: "v0.12.0"
+    app.kubernetes.io/managed-by: Helm
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: kubed
+subjects:
+- kind: ServiceAccount
+  name: kubed
+  namespace: kube-system
+---
+# Source: kubed/templates/apiregistration.yaml
+# to read the config for terminating authentication
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: kubed-apiserver-extension-server-authentication-reader
+  namespace: kube-system
+  labels:
+    helm.sh/chart: kubed-v0.12.0
+    app.kubernetes.io/name: kubed
+    app.kubernetes.io/instance: kubed
+    app.kubernetes.io/version: "v0.12.0"
+    app.kubernetes.io/managed-by: Helm
+roleRef:
+  kind: Role
+  apiGroup: rbac.authorization.k8s.io
+  name: extension-apiserver-authentication-reader
+subjects:
+- kind: ServiceAccount
+  name: kubed
+  namespace: kube-system
+---
+# Source: kubed/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: kubed
+  namespace: kube-system
+  labels:
+    helm.sh/chart: kubed-v0.12.0
+    app.kubernetes.io/name: kubed
+    app.kubernetes.io/instance: kubed
+    app.kubernetes.io/version: "v0.12.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  ports:
+  # Port used to expose admission webhook apiserver
+  - name: api
+    port: 443
+    targetPort: 8443
+  selector:
+    app.kubernetes.io/name: kubed
+    app.kubernetes.io/instance: kubed
+---
+# Source: kubed/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kubed
+  namespace: kube-system
+  labels:
+    helm.sh/chart: kubed-v0.12.0
+    app.kubernetes.io/name: kubed
+    app.kubernetes.io/instance: kubed
+    app.kubernetes.io/version: "v0.12.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: kubed
+      app.kubernetes.io/instance: kubed
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: kubed
+        app.kubernetes.io/instance: kubed
+      annotations:
+        checksum/apiregistration.yaml: e564a104681b9dad9170e83b6cb83c646f75add498f7b150ee0391c15739c260
+    spec:
+      serviceAccountName: kubed
+      containers:
+      - name: kubed
+        securityContext:
+          {}
+        image: appscode/kubed:v0.12.0
+        imagePullPolicy: IfNotPresent
+        args:
+        - run
+        - --v=3
+        - --secure-port=8443
+        - --audit-log-path=-
+        - --tls-cert-file=/var/serving-cert/tls.crt
+        - --tls-private-key-file=/var/serving-cert/tls.key
+        - --use-kubeapiserver-fqdn-for-aks=true
+        - --enable-analytics=true
+        - --cluster-name=unicorn
+        ports:
+        - containerPort: 8443
+        resources:
+          {}
+        volumeMounts:
+        - name: config
+          mountPath: /srv/kubed
+        - name: scratch
+          mountPath: /tmp
+        - mountPath: /var/serving-cert
+          name: serving-cert
+      volumes:
+      - name: config
+        secret:
+          secretName: kubed
+      - name: scratch
+        emptyDir: {}
+      - name: serving-cert
+        secret:
+          defaultMode: 420
+          secretName: kubed-apiserver-cert
+      securityContext:
+        fsGroup: 65535
