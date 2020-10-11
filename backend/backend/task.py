@@ -24,12 +24,10 @@ class Difficulty(str, Enum):
 
 class Task(BaseModel):
     name: str
-    image: str
     difficulty: Difficulty
     rarity: Rarity
     start: str
     destination: str
-    expiry: str
 
 
 class TaskDetail(BaseModel):
