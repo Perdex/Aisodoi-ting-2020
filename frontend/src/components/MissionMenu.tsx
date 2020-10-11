@@ -45,7 +45,7 @@ const MissionMenu = ({ onAccept, onDecline, xp }: Props) => {
           }}
           transition={{
             delay: 0.25,
-            duration: 2.5,
+            duration: 1.75,
             ease: "easeInOut",
             times: [0, 0.3, 0.6, 1],
           }}
@@ -63,7 +63,7 @@ const MissionMenu = ({ onAccept, onDecline, xp }: Props) => {
             opacity: [0, 1],
           }}
           transition={{
-            delay: 3.5,
+            delay: 2.5,
             duration: 0.5,
             ease: "easeInOut",
             times: [0, 1],
@@ -86,7 +86,7 @@ const MissionMenu = ({ onAccept, onDecline, xp }: Props) => {
             opacity: [0, 1],
           }}
           transition={{
-            delay: 4,
+            delay: 3,
             duration: 0.5,
             ease: "easeInOut",
             times: [0, 1],
@@ -105,7 +105,7 @@ const MissionMenu = ({ onAccept, onDecline, xp }: Props) => {
             opacity: [0, 1],
           }}
           transition={{
-            delay: 4.25,
+            delay: 3.25,
             duration: 0.5,
             ease: "easeInOut",
             times: [0, 1],
@@ -124,7 +124,7 @@ const MissionMenu = ({ onAccept, onDecline, xp }: Props) => {
             opacity: [0, 1],
           }}
           transition={{
-            delay: 4.5,
+            delay: 3.5,
             duration: 0.5,
             ease: "easeInOut",
             times: [0, 1],
@@ -143,7 +143,7 @@ const MissionMenu = ({ onAccept, onDecline, xp }: Props) => {
             opacity: [0, 1],
           }}
           transition={{
-            delay: 6,
+            delay: 5,
             duration: 0.5,
             ease: "easeInOut",
             times: [0, 1],

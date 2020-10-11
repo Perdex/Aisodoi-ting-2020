@@ -7,6 +7,7 @@ import MissionFinish from "./components/MissionFinish";
 import Div100vh from "react-div-100vh";
 import { useQuery } from "react-query";
 import "./index.css";
+import HelpText from "./components/HelpText";
 
 enum AppState {
   menu = 1,
@@ -56,7 +57,7 @@ const App = () => {
         // @ts-ignore
         lat={lat}
         lng={lon}
-        title="Mark"
+        title="Drop Point"
         color="red"
       />
     );
@@ -105,9 +106,17 @@ const App = () => {
         <MissionFinish
           xp={futureXp}
           totalXp={totalXp}
-          onContinue={() => { 
+          onContinue={() => {
             setAppState(AppState.map);
-            setTotalXp((futureXp + totalXp)%1000);}}
+            setTotalXp((futureXp + totalXp) % 1000);
+          }}
+        />
+      )}
+      {appState === AppState.map && <HelpText text="Select your mission" />}
+      {appState === AppState.travel && (
+        <HelpText
+          text={"Deliver the package to Drop Point"}
+          disclaimer={"(DEV BUILD: GPS not enabled)"}
         />
       )}
     </>

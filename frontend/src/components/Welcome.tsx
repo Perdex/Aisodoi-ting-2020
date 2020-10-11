@@ -1,13 +1,14 @@
 import React from "react";
 import { motion } from "framer-motion";
 
+
 type Props = {
-  xp: number;
-  totalXp: number;
-  onContinue: () => void;
+  xp: number
+  onAccept: () => void;
+  onDecline: () => void;
 };
 
-const MissionFinish = ({ onContinue, xp, totalXp }: Props) => {
+const Welcome = ({ onAccept, onDecline, xp }: Props) => {
   return (
     <div
       style={{
@@ -44,17 +45,17 @@ const MissionFinish = ({ onContinue, xp, totalXp }: Props) => {
           }}
           transition={{
             delay: 0.25,
-            duration: 1.5,
+            duration: 2.5,
             ease: "easeInOut",
             times: [0, 0.3, 0.6, 1],
           }}
           style={{ flexDirection: "column", alignItems: "center" }}
         >
-          <div style={{ color: "#FEFEFEBB", fontSize: 40 }}>SUCCESS</div>
+          <div style={{ color: "#FEFEFEBB", fontSize: 40 }}>BADGER</div>
           <div
             style={{ color: "#FEFEFEBB", fontSize: 18, textAlign: "center" }}
           >
-            + {xp} XP
+            INSOMNIAC
           </div>
         </motion.div>
         <motion.div
@@ -62,7 +63,7 @@ const MissionFinish = ({ onContinue, xp, totalXp }: Props) => {
             opacity: [0, 1],
           }}
           transition={{
-            delay: 2.5,
+            delay: 3.5,
             duration: 0.5,
             ease: "easeInOut",
             times: [0, 1],
@@ -76,71 +77,9 @@ const MissionFinish = ({ onContinue, xp, totalXp }: Props) => {
             maxWidth: 600,
           }}
         >
-          Badger! You have succesfully transported the package.
-        </motion.div>
-        {xp + totalXp >= 1000 && (
-          <motion.div
-            animate={{
-              opacity: [0, 1],
-            }}
-            transition={{
-              delay: 3.5,
-              duration: 0.5,
-              ease: "easeInOut",
-              times: [0, 1],
-            }}
-            style={{
-              marginTop: "2em",
-              textAlign: "center",
-              color: "#FEFEFEBB",
-              fontSize: 22,
-            }}
-          >
-            Level Up
-          </motion.div>
-        )}
-        <motion.div
-          animate={{
-            opacity: [0, 1],
-          }}
-          transition={{
-            delay: 2.75,
-            duration: 0.5,
-            ease: "easeInOut",
-            times: [0, 1],
-          }}
-          style={{
-            backgroundColor: "transparent",
-            borderWidth: 1,
-            borderRadius: 16,
-            width: 300,
-            padding: 3,
-            height: "2em",
-            borderStyle: "solid",
-            borderColor: "#FEFEFEBB",
-            margin: "1em",
-          }}
-        >
-          <motion.div
-            animate={{
-              width: [
-                `${Math.min(100, totalXp / 10)}%`,
-                `${Math.min(100, (totalXp + xp) / 10)}%`,
-              ],
-            }}
-            transition={{
-              delay: 3,
-              duration: 1,
-              ease: "easeInOut",
-              times: [0, 1],
-            }}
-            style={{
-              height: "100%",
-              borderRadius: 16,
-              backgroundColor: "#FEFEFEBB",
-              width: "20%",
-            }}
-          ></motion.div>
+          Badger! Your mission, should you choose to accept it, is to transport
+          this package to a dead drop. Be discreet, we have reports of enemy
+          badgers in the arena.
         </motion.div>
         <motion.div
           animate={{
@@ -152,9 +91,95 @@ const MissionFinish = ({ onContinue, xp, totalXp }: Props) => {
             ease: "easeInOut",
             times: [0, 1],
           }}
+          style={{
+            marginTop: "3em",
+            color: "#FEFEFEBB",
+            textAlign: "center",
+            fontSize: 16,
+          }}
+        >
+          Estimated Time: {Math.floor((10 + Math.random()*25))} minutes
+        </motion.div>
+        <motion.div
+          animate={{
+            opacity: [0, 1],
+          }}
+          transition={{
+            delay: 4.25,
+            duration: 0.5,
+            ease: "easeInOut",
+            times: [0, 1],
+          }}
+          style={{
+            marginTop: "1em",
+            color: "#FEFEFEBB",
+            textAlign: "center",
+            fontSize: 16,
+          }}
+        >
+          Package Weight: ~ {0.5 + Math.floor((1 + Math.random()*2)) + Math.round(Math.random())/2} kg
+        </motion.div>
+        <motion.div
+          animate={{
+            opacity: [0, 1],
+          }}
+          transition={{
+            delay: 4.5,
+            duration: 0.5,
+            ease: "easeInOut",
+            times: [0, 1],
+          }}
+          style={{
+            marginTop: "1em",
+            color: "#FEFEFEBB",
+            textAlign: "center",
+            fontSize: 16,
+          }}
+        >
+          Reward: {xp} XP
+        </motion.div>
+        <motion.div
+          animate={{
+            opacity: [0, 1],
+          }}
+          transition={{
+            delay: 6,
+            duration: 0.5,
+            ease: "easeInOut",
+            times: [0, 1],
+          }}
+          style={{
+            marginTop: "1em",
+            color: "#FEFEFEBB",
+            textAlign: "center",
+            fontSize: 16,
+            display: "flex",
+            flexDirection: "row",
+          }}
         >
           <button
-            onClick={onContinue}
+            onClick={onDecline}
+            style={{
+              backgroundColor: "transparent",
+              borderWidth: 1,
+              borderRadius: 16,
+              flex: 1,
+              paddingLeft: "0.75em",
+              paddingRight: "0.75em",
+              paddingTop: "0.75em",
+              paddingBottom: "0.75em",
+              fontSize: 20,
+              borderStyle: "solid",
+              borderColor: "#FEFEFEBB",
+              color: "#FEFEFEBB",
+              margin: "1em",
+              marginRight: 0,
+            }}
+          >
+            Decline
+          </button>
+          <button
+            onClick={onAccept}
             style={{
               backgroundColor: "transparent",
               borderWidth: 1,
@@ -168,10 +193,9 @@ const MissionFinish = ({ onContinue, xp, totalXp }: Props) => {
               borderColor: "#FEFEFEBB",
               color: "#FEFEFEBB",
               margin: "1em",
-              marginTop: "1.5em",
             }}
           >
-            Continue
+            Accept
           </button>
         </motion.div>
         <motion.img
@@ -199,4 +223,4 @@ const MissionFinish = ({ onContinue, xp, totalXp }: Props) => {
   );
 };
 
-export default MissionFinish;
+export default Welcome;
