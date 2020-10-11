@@ -37,7 +37,7 @@ const Welcome = ({ onContinue }: Props) => {
         <motion.img
           src="logo.png"
           style={{
-            width: "30vw",
+            width: "45vw",
             maxWidth: 349,
             opacity: 0.4,
           }}
