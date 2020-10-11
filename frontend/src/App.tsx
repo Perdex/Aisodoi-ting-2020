@@ -5,7 +5,7 @@ import MissionIcon from "./components/MissionIcon";
 import MissionMenu from "./components/MissionMenu";
 import MissionFinish from "./components/MissionFinish";
 import Div100vh from "react-div-100vh";
-import { useQuery } from "react-query";
+import { useQuery, useMutation } from "react-query";
 import "./index.css";
 
 enum AppState {
@@ -29,8 +29,14 @@ const App = () => {
   const [task, setTask] = useState(null);
   const [totalXp, setTotalXp] = useState(800);
   const [futureXp, setFutureXp] = useState(250);
-  const { data, isLoading } = useQuery("tasks", () =>
-    fetch(`${process.env.REACT_APP_API_URL}/tasks`).then((res) => res.json()),
+  const { data, isLoading } = useQuery(
+    "tasks",
+    () =>
+      fetch(`${process.env.REACT_APP_API_URL}/tasks`).then((res) => res.json()),
+    { refetchInterval: 500 },
+  );
+  const [deleteMission, {}] = useMutation(({ id }: any) =>
+    fetch(`${process.env.REACT_APP_API_URL}/tasks/${id}`, { method: "DELETE" }),
   );
 
   const tasks = isLoading
@@ -104,6 +110,7 @@ const App = () => {
       </Div100vh>
       {appState === AppState.mission && (
         <MissionMenu
+          id={task.id}
           xp={futureXp}
           name={task.name}
           onDecline={() => setAppState(AppState.map)}
@@ -114,9 +121,12 @@ const App = () => {
         <MissionFinish
           xp={futureXp}
           totalXp={totalXp}
-          onContinue={() => { 
+          onContinue={() => {
             setAppState(AppState.map);
-            setTotalXp((futureXp + totalXp)%1000);}}
+            setTotalXp((futureXp + totalXp) % 1000);
+            deleteMission({ id: task.id });
+            setTask(null);
+          }}
         />
       )}
     </>
