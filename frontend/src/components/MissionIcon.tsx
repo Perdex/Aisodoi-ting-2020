@@ -28,7 +28,7 @@ const MissionIcon = ({ $hover, title, color = "blue" }: any) => {
         </div>
         <div
           style={{
-            backgroundImage: `radial-gradient(${color0}, ${color})`,
+            backgroundImage: `radial-gradient(${color}, ${color0})`,
             width: 24,
             height: 24,
             borderRadius: 20,
