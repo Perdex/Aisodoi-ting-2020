@@ -130,11 +130,16 @@ const App = () => {
           }}
         />
       )}
-      {appState === AppState.map && <HelpText text="Select your mission" />}
+      {appState === AppState.map && (
+        <HelpText
+          text="Select your mission"
+          disclaimer={"(Alpha Build: GPS not enabled)"}
+        />
+      )}
       {appState === AppState.travel && (
         <HelpText
           text={"Deliver the package to Drop Point"}
-          disclaimer={"(DEV BUILD: GPS not enabled)"}
+          disclaimer={"(Alpha Build: GPS not enabled)"}
         />
       )}
     </>

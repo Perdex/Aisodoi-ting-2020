@@ -10,24 +10,32 @@ const HelpText = ({ text, disclaimer }: Props) => {
     <div
       style={{
         position: "absolute",
-        left: "50%",
+        left: 0,
+        right: 0,
         top: "3vh",
-        backgroundColor: "#0F0F0FAA",
-        borderRadius: 18,
-        paddingTop: "0.5em",
-        paddingBottom: "0.5em",
-        paddingLeft: "0.7em",
-        paddingRight: "0.7em",
-        color: "#FEFEFEBB",
-        textAlign: "center",
+        display: "flex",
+        justifyContent: "center"
       }}
     >
-      {text}
-      {disclaimer && (
-        <>
-          <br /> {disclaimer}
-        </>
-      )}
+      <div
+        style={{
+          backgroundColor: "#0F0F0FAA",
+          borderRadius: 18,
+          paddingTop: "0.5em",
+          paddingBottom: "0.5em",
+          paddingLeft: "0.7em",
+          paddingRight: "0.7em",
+          color: "#FEFEFEBB",
+          textAlign: "center",
+        }}
+      >
+        {text}
+        {disclaimer && (
+          <>
+            <br /> {disclaimer}
+          </>
+        )}
+      </div>
     </div>
   );
 };
