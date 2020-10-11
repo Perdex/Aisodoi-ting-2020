@@ -1,0 +1,48 @@
+import React from "react";
+import styled from "styled-components";
+import styles from "./all.module.css";
+
+const MissionIcon = ({ $hover }: any) => {
+  if (true) {
+    return (
+      <div
+        style={{
+          backgroundImage: "radial-gradient(#679ae055, #679ae0)",
+          width: 24,
+          height: 24,
+          borderRadius: 20,
+          opacity: 0.7,
+        }}
+      ></div>
+    );
+  }
+  return (
+    <>
+      <div
+        style={{
+          backgroundImage: "radial-gradient(#679ae0, #679ae0)",
+          width: 24,
+          height: 24,
+          borderRadius: 20,
+          opacity: 0.7,
+        }}
+      ></div>
+      <div
+        style={{
+          width: 300,
+          height: 200,
+          backgroundColor: "#0F0F0FAA",
+          marginTop: -224,
+          marginLeft: 24,
+          zIndex: 100,
+          borderStyle: "solid",
+          borderColor: "#fefefeAA",
+          borderWidth: 2,
+          borderRadius: 10,
+        }}
+      ></div>
+    </>
+  );
+};
+
+export default MissionIcon;
