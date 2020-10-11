@@ -2,6 +2,7 @@ import React from "react";
 
 const MissionIcon = ({ $hover, title, color = "blue" }: any) => {
   if (true) {
+    const color0 = `${color}55`;
     return (
       <div
         style={{
@@ -17,7 +18,7 @@ const MissionIcon = ({ $hover, title, color = "blue" }: any) => {
           style={{
             color: "#fefefeAA",
             marginTop: "-1em",
-            
+
             marginBottom: "0.05em",
             whiteSpace: "nowrap",
             textAlign: "center",
@@ -27,10 +28,7 @@ const MissionIcon = ({ $hover, title, color = "blue" }: any) => {
         </div>
         <div
           style={{
-            backgroundImage:
-              color === "blue"
-                ? "radial-gradient(#679ae055, #679ae0)"
-                : "radial-gradient(#dbc74655, #dbc746)",
+            backgroundImage: `radial-gradient(${color}, ${color0})`,
             width: 24,
             height: 24,
             borderRadius: 20,

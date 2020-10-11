@@ -5,7 +5,7 @@ import MissionIcon from "./components/MissionIcon";
 import MissionMenu from "./components/MissionMenu";
 import MissionFinish from "./components/MissionFinish";
 import Div100vh from "react-div-100vh";
-import { useQuery } from "react-query";
+import { useQuery, useMutation } from "react-query";
 import "./index.css";
 import HelpText from "./components/HelpText";
 
@@ -17,13 +17,27 @@ enum AppState {
   finish = 5,
 }
 
+const rarityColors = {
+  common: "#fefefe",
+  uncommon: "#4ecb25",
+  rare: "#3379fc",
+  epic: "#923ac7",
+  legendary: "#f29717",
+};
+
 const App = () => {
   const [appState, setAppState] = useState(AppState.map);
   const [task, setTask] = useState(null);
   const [totalXp, setTotalXp] = useState(800);
   const [futureXp, setFutureXp] = useState(250);
-  const { data, isLoading } = useQuery("tasks", () =>
-    fetch(`${process.env.REACT_APP_API_URL}/tasks`).then((res) => res.json()),
+  const { data, isLoading } = useQuery(
+    "tasks",
+    () =>
+      fetch(`${process.env.REACT_APP_API_URL}/tasks`).then((res) => res.json()),
+    { refetchInterval: 500 },
+  );
+  const [deleteMission, {}] = useMutation(({ id }: any) =>
+    fetch(`${process.env.REACT_APP_API_URL}/tasks/${id}`, { method: "DELETE" }),
   );
 
   const tasks = isLoading
@@ -44,7 +58,7 @@ const App = () => {
           lat={startLat}
           lng={startLon}
           title={t.name}
-          color="blue"
+          color={rarityColors[t.rarity]}
         />
       );
     });
@@ -58,7 +72,7 @@ const App = () => {
         lat={lat}
         lng={lon}
         title="Drop Point"
-        color="red"
+        color="#65de45"
       />
     );
   }
@@ -97,7 +111,9 @@ const App = () => {
       </Div100vh>
       {appState === AppState.mission && (
         <MissionMenu
+          id={task.id}
           xp={futureXp}
+          name={task.name}
           onDecline={() => setAppState(AppState.map)}
           onAccept={() => setAppState(AppState.travel)}
         />
@@ -109,6 +125,8 @@ const App = () => {
           onContinue={() => {
             setAppState(AppState.map);
             setTotalXp((futureXp + totalXp) % 1000);
+            deleteMission({ id: task.id });
+            setTask(null);
           }}
         />
       )}

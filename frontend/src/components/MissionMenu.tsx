@@ -1,14 +1,19 @@
 import React from "react";
 import { motion } from "framer-motion";
 
-
 type Props = {
   xp: number
   onAccept: () => void;
   onDecline: () => void;
+  name: string;
+  id: number;
 };
 
-const MissionMenu = ({ onAccept, onDecline, xp }: Props) => {
+const MissionMenu = ({ onAccept, onDecline, xp, name, id }: Props) => {
+  function random() {
+    const x = Math.sin(id++) * 10000;
+    return x - Math.floor(x);
+  }
   return (
     <div
       style={{
@@ -55,7 +60,7 @@ const MissionMenu = ({ onAccept, onDecline, xp }: Props) => {
           <div
             style={{ color: "#FEFEFEBB", fontSize: 18, textAlign: "center" }}
           >
-            INSOMNIAC
+            {name.toUpperCase()}
           </div>
         </motion.div>
         <motion.div
@@ -98,7 +103,7 @@ const MissionMenu = ({ onAccept, onDecline, xp }: Props) => {
             fontSize: 16,
           }}
         >
-          Estimated Time: {Math.floor((10 + Math.random()*25))} minutes
+          Estimated Time: {Math.floor((10 + random()*25))} minutes
         </motion.div>
         <motion.div
           animate={{
@@ -117,7 +122,7 @@ const MissionMenu = ({ onAccept, onDecline, xp }: Props) => {
             fontSize: 16,
           }}
         >
-          Package Weight: ~ {0.5 + Math.floor((1 + Math.random()*2)) + Math.round(Math.random())/2} kg
+          Package Weight: ~ {0.5 + Math.floor((1 + random()*2)) + Math.round(random())/2} kg
         </motion.div>
         <motion.div
           animate={{
