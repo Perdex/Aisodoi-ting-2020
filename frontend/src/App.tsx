@@ -8,9 +8,10 @@ import Div100vh from "react-div-100vh";
 import { useQuery, useMutation } from "react-query";
 import "./index.css";
 import HelpText from "./components/HelpText";
+import Welcome from "./components/Welcome";
 
 enum AppState {
-  menu = 1,
+  welcome = 1,
   map = 2,
   mission = 3,
   travel = 4,
@@ -26,7 +27,7 @@ const rarityColors = {
 };
 
 const App = () => {
-  const [appState, setAppState] = useState(AppState.map);
+  const [appState, setAppState] = useState(AppState.welcome);
   const [task, setTask] = useState(null);
   const [totalXp, setTotalXp] = useState(800);
   const [futureXp, setFutureXp] = useState(250);
@@ -118,6 +119,9 @@ const App = () => {
           onDecline={() => setAppState(AppState.map)}
           onAccept={() => setAppState(AppState.travel)}
         />
+      )}
+      {appState === AppState.welcome && (
+        <Welcome onContinue={() => setAppState(AppState.map)} />
       )}
       {appState === AppState.finish && (
         <MissionFinish
