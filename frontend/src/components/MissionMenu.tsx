@@ -1,14 +1,14 @@
 import React from "react";
 import { motion } from "framer-motion";
 
-
 type Props = {
   xp: number
   onAccept: () => void;
   onDecline: () => void;
+  name: string;
 };
 
-const MissionMenu = ({ onAccept, onDecline, xp }: Props) => {
+const MissionMenu = ({ onAccept, onDecline, xp, name }: Props) => {
   return (
     <div
       style={{
@@ -55,7 +55,7 @@ const MissionMenu = ({ onAccept, onDecline, xp }: Props) => {
           <div
             style={{ color: "#FEFEFEBB", fontSize: 18, textAlign: "center" }}
           >
-            INSOMNIAC
+            {name.toUpperCase()}
           </div>
         </motion.div>
         <motion.div

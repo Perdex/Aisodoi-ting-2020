@@ -43,19 +43,22 @@ class TaskList(BaseModel):
 
 TaskManager = ObjManager[Task]()
 
-for i in range(10):
+names = ['Insomniac', 'Thunderbird', 'Cloudbreaker', 'Nightstrike']
+rarity = [Rarity.common, Rarity.rare, Rarity.epic, Rarity.legendary]
+
+for i in range(4):
     start_lat = 60.6382379 + random()*0.01 - 0.005
     end_lat = 60.6382379 + random()*0.01 - 0.005
     start_lon = 25.3179172 + random()*0.01 - 0.005
     end_lon = 25.3179172 + random()*0.01 - 0.005
     task = Task(
-        name = f"Mission {i}",
+        name = names[i],
         start = f"{start_lat},{start_lon}",
         destination = f"{end_lat},{end_lon}",
         difficulty = Difficulty.easy,
         expiry = "lol",
         image = "but why",
-        rarity = choice([Rarity.common]*8 + [Rarity.uncommon]*6 + [Rarity.rare]*5 + [Rarity.epic]*2 + [Rarity.legendary])
+        rarity = rarity[i] # choice([Rarity.common]*8 + [Rarity.uncommon]*6 + [Rarity.rare]*5 + [Rarity.epic]*2 + [Rarity.legendary])
     )
     TaskManager.add_obj(task)
 

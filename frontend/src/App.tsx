@@ -16,6 +16,14 @@ enum AppState {
   finish = 5,
 }
 
+const rarityColors = {
+  common: "#fefefe",
+  uncommon: "#4ecb25",
+  rare: "#3379fc",
+  epic: "#923ac7",
+  legendary: "#f29717",
+};
+
 const App = () => {
   const [appState, setAppState] = useState(AppState.map);
   const [task, setTask] = useState(null);
@@ -43,7 +51,7 @@ const App = () => {
           lat={startLat}
           lng={startLon}
           title={t.name}
-          color="blue"
+          color={rarityColors[t.rarity]}
         />
       );
     });
@@ -57,7 +65,7 @@ const App = () => {
         lat={lat}
         lng={lon}
         title="Mark"
-        color="red"
+        color="#65de45"
       />
     );
   }
@@ -97,6 +105,7 @@ const App = () => {
       {appState === AppState.mission && (
         <MissionMenu
           xp={futureXp}
+          name={task.name}
           onDecline={() => setAppState(AppState.map)}
           onAccept={() => setAppState(AppState.travel)}
         />
