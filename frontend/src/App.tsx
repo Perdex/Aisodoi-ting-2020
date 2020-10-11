@@ -4,6 +4,9 @@ import styles from "./map-style";
 import MissionIcon from "./components/MissionIcon";
 import MissionMenu from "./components/MissionMenu";
 import MissionFinish from "./components/MissionFinish";
+import Div100vh from "react-div-100vh";
+
+import "./index.css";
 
 const AnyReactComponent = ({ text }) => (
   <div style={{ color: "white" }}>{text}</div>
@@ -18,7 +21,12 @@ enum AppState {
 }
 
 const App = () => {
-  const [appState, setAppState] = useState(AppState.finish);
+  const [appState, setAppState] = useState(AppState.map);
+
+  window.onresize = function () {
+    // @ts-ignore
+    document.body.height = window.innerHeight;
+  };
 
   let icon;
 
@@ -44,26 +52,32 @@ const App = () => {
   }
 
   const onClickMission = (i: number) => {
-    if (appState == AppState.map) setAppState(AppState.mission);
-    else if (appState == AppState.travel) setAppState(AppState.finish);
+    if (appState === AppState.map) setAppState(AppState.mission);
+    else if (appState === AppState.travel) setAppState(AppState.finish);
   };
 
   return (
     <>
-      <div style={{ height: "100vh", width: "100%" }}>
+      {/* @ts-ignore */}
+      <Div100vh style={{ width: "100%", backgroundColor: "black" }}>
         <GoogleMapReact
           bootstrapURLKeys={{ key: process.env.REACT_APP_GOOGLE_API }}
           defaultCenter={{
             lat: 60.6382379,
             lng: 25.3179172,
           }}
-          defaultZoom={16}
-          options={{ styles }}
+          defaultZoom={15}
+          options={{
+            styles,
+            backgroundColor: "black",
+            zoomControl: false,
+            fullscreenControl: false,
+          }}
           onChildClick={onClickMission}
         >
           {icon}
         </GoogleMapReact>
-      </div>
+      </Div100vh>
       {appState === AppState.mission && (
         <MissionMenu
           onDecline={() => setAppState(AppState.map)}

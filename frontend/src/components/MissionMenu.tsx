@@ -1,6 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 
+
 type Props = {
   onAccept: () => void;
   onDecline: () => void;
@@ -38,14 +39,14 @@ const MissionMenu = ({ onAccept, onDecline }: Props) => {
         <motion.div
           animate={{
             scale: [1, 1.5, 1.5, 1],
-            y: ["50vh", "50vh", "50vh", "10vh"],
+            y: ["35vh", "35vh", "35vh", "10vh"],
             opacity: [0, 1, 1, 1],
           }}
           transition={{
             delay: 0.25,
             duration: 2.5,
             ease: "easeInOut",
-            times: [0, 0.4, 0.6, 1],
+            times: [0, 0.3, 0.6, 1],
           }}
           style={{ flexDirection: "column", alignItems: "center" }}
         >

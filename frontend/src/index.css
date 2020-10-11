@@ -5,6 +5,9 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  height: "100%";
+  overflow: hidden;
+  background-color: black;
 }
 
 code {
@@ -20,4 +23,15 @@ code {
   right: 10;
   border-radius: 20;
   background-color: white;
+}
+
+.GoogleMap {
+  height: 100vh;
+  height: "100%";
+}
+
+html {
+  height: "100%";
+  overflow: hidden;
+  background-color: black;
 }

@@ -1,27 +1,36 @@
 import React from "react";
-import styled from "styled-components";
-import styles from "./all.module.css";
 
 const MissionIcon = ({ $hover, title, color = "blue" }: any) => {
   if (true) {
     return (
-      <div>
-         <div
-          style={{
-            color: "#fefefeAA",
-            marginTop: "1em",
-            marginLeft: "-4em",
-            fontSize: 12,
-            width: "8em",
-            marginBottom: 3,
-            whiteSpace: "nowrap",
-            textAlign: "center"
-          }}
-        >{title}</div> 
+      <div
+        style={{
+          fontSize: 12,
+          marginTop: -12,
+          marginLeft: -12,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center"
+        }}
+      >
         <div
           style={{
-            backgroundImage: color === "blue" ? "radial-gradient(#679ae055, #679ae0)" : "radial-gradient(#dbc74655, #dbc746)",
-            marginLeft: -12,
+            color: "#fefefeAA",
+            marginTop: "-1em",
+            
+            marginBottom: "0.05em",
+            whiteSpace: "nowrap",
+            textAlign: "center",
+          }}
+        >
+          {title}
+        </div>
+        <div
+          style={{
+            backgroundImage:
+              color === "blue"
+                ? "radial-gradient(#679ae055, #679ae0)"
+                : "radial-gradient(#dbc74655, #dbc746)",
             width: 24,
             height: 24,
             borderRadius: 20,
