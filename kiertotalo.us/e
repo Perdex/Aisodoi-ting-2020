@@ -1,0 +1,29 @@
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1", user-scalable=no">
+<style>
+img {
+	position: relative;
+	  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+animation-name: fadein;
+    animation-duration: 1s;
+
+}
+
+@keyframes fadein {
+    from { transform: translateY(50px); opacity: 0; }
+    to   { transform: translateY(0px); opacity: 1; }
+}
+
+</style>
+<body style="background-image: url('city.png');no-repeat center center fixed; 
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;">
+<a href="https://www.youtube.com/watch?v=hGlyFc79BUE"><img src="badger.png" alt="BADGER"></a>
+</div>
+</body>
+</html>
