@@ -41,21 +41,22 @@ const App = () => {
     fetch(`${process.env.REACT_APP_API_URL}/tasks/${id}`, { method: "DELETE" }),
   );
 
-  const tasks = isLoading
-    ? []
-    : Object.entries<any>(data.objs).map(([id, obj]) => ({ id, ...obj }));
+  const tasks = isLoading ? {} : data.objs;
+  // const tasks = isLoading
+  //   ? []
+  //   : Object.entries<any>(data.objs).map(([id, obj]) => ({ id, ...obj }));
 
   let icons;
 
   if (appState === AppState.map) {
-    icons = tasks.map((t) => {
+    icons = (Object.entries(tasks) as any).map(([id, t]) => {
       const [startLat, startLon] = t.start
         .split(",")
         .map((x) => Number.parseFloat(x));
       return (
         <MissionIcon
           // @ts-ignore
-          key={t.id}
+          key={id}
           lat={startLat}
           lng={startLon}
           title={t.name}
@@ -78,11 +79,11 @@ const App = () => {
     );
   }
 
-  const onClickMission = (i: number) => {
+  const onClickMission = (id: number) => {
     if (appState === AppState.map) {
       setAppState(AppState.mission);
       setFutureXp((20 + Math.round(Math.random() * 25)) * 10);
-      setTask(tasks[i]);
+      setTask({ ...tasks[id], id });
     } else if (appState === AppState.travel) {
       setAppState(AppState.finish);
     }
@@ -93,7 +94,6 @@ const App = () => {
       {/* @ts-ignore */}
       <Div100vh style={{ width: "100%", backgroundColor: "black" }}>
         <GoogleMapReact
-          key={JSON.stringify(tasks)}
           bootstrapURLKeys={{ key: process.env.REACT_APP_GOOGLE_API }}
           defaultCenter={{
             lat: 60.6382379,
