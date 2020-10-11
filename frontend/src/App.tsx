@@ -35,7 +35,7 @@ const App = () => {
     "tasks",
     () =>
       fetch(`${process.env.REACT_APP_API_URL}/tasks`).then((res) => res.json()),
-    { refetchInterval: 500 },
+    { refetchInterval: 5000 },
   );
   const [deleteMission, {}] = useMutation(({ id }: any) =>
     fetch(`${process.env.REACT_APP_API_URL}/tasks/${id}`, { method: "DELETE" }),
