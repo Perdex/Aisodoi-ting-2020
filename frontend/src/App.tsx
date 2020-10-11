@@ -8,10 +8,6 @@ import Div100vh from "react-div-100vh";
 import { useQuery } from "react-query";
 import "./index.css";
 
-const AnyReactComponent = ({ text }) => (
-  <div style={{ color: "white" }}>{text}</div>
-);
-
 enum AppState {
   menu = 1,
   map = 2,
@@ -23,7 +19,8 @@ enum AppState {
 const App = () => {
   const [appState, setAppState] = useState(AppState.map);
   const [task, setTask] = useState(null);
-  const [futureXp, setfutureXp] = useState(250);
+  const [totalXp, setTotalXp] = useState(800);
+  const [futureXp, setFutureXp] = useState(250);
   const { data, isLoading } = useQuery("tasks", () =>
     fetch(`${process.env.REACT_APP_API_URL}/tasks`).then((res) => res.json()),
   );
@@ -66,11 +63,13 @@ const App = () => {
   }
 
   const onClickMission = (i: number) => {
-    if (appState == AppState.map) {
+    if (appState === AppState.map) {
       setAppState(AppState.mission);
-      setfutureXp((20 + Math.round(Math.random() * 25)) * 10);
+      setFutureXp((20 + Math.round(Math.random() * 25)) * 10);
       setTask(tasks[i]);
-    } else if (appState == AppState.travel) setAppState(AppState.finish);
+    } else if (appState === AppState.travel) {
+      setAppState(AppState.finish);
+    }
   };
 
   return (
@@ -105,8 +104,10 @@ const App = () => {
       {appState === AppState.finish && (
         <MissionFinish
           xp={futureXp}
-          onDecline={() => setAppState(AppState.map)}
-          onAccept={() => setAppState(AppState.travel)}
+          totalXp={totalXp}
+          onContinue={() => { 
+            setAppState(AppState.map);
+            setTotalXp((futureXp + totalXp)%1000);}}
         />
       )}
     </>

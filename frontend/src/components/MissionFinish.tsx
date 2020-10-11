@@ -3,11 +3,11 @@ import { motion } from "framer-motion";
 
 type Props = {
   xp: number;
-  onAccept: () => void;
-  onDecline: () => void;
+  totalXp: number;
+  onContinue: () => void;
 };
 
-const MissionFinish = ({ onAccept, onDecline, xp }: Props) => {
+const MissionFinish = ({ onContinue, xp, totalXp }: Props) => {
   return (
     <div
       style={{
@@ -39,14 +39,14 @@ const MissionFinish = ({ onAccept, onDecline, xp }: Props) => {
         <motion.div
           animate={{
             scale: [1, 1.5, 1.5, 1],
-            y: ["50vh", "50vh", "50vh", "10vh"],
+            y: ["35vh", "35vh", "35vh", "10vh"],
             opacity: [0, 1, 1, 1],
           }}
           transition={{
             delay: 0.25,
             duration: 2.5,
             ease: "easeInOut",
-            times: [0, 0.4, 0.6, 1],
+            times: [0, 0.3, 0.6, 1],
           }}
           style={{ flexDirection: "column", alignItems: "center" }}
         >
@@ -78,18 +78,19 @@ const MissionFinish = ({ onAccept, onDecline, xp }: Props) => {
         >
           Badger! You have succesfully transported the package.
         </motion.div>
-        <motion.div
+        {xp + totalXp >= 1000 && (
+          <motion.div
             animate={{
-              width: ["20%", "100%"],
+              opacity: [0, 1],
             }}
             transition={{
-              delay: 8.0,
+              delay: 6.5,
               duration: 0.5,
               ease: "easeInOut",
               times: [0, 1],
             }}
             style={{
-              marginTop: "1em",
+              marginTop: "2em",
               textAlign: "center",
               color: "#FEFEFEBB",
               fontSize: 22,
@@ -97,6 +98,7 @@ const MissionFinish = ({ onAccept, onDecline, xp }: Props) => {
           >
             Level Up
           </motion.div>
+        )}
         <motion.div
           animate={{
             opacity: [0, 1],
@@ -121,11 +123,14 @@ const MissionFinish = ({ onAccept, onDecline, xp }: Props) => {
         >
           <motion.div
             animate={{
-              width: ["20%", "100%"],
+              width: [
+                `${Math.min(100, totalXp / 10)}%`,
+                `${Math.min(100, (totalXp + xp) / 10)}%`,
+              ],
             }}
             transition={{
               delay: 5.0,
-              duration: 3,
+              duration: 1.5,
               ease: "easeInOut",
               times: [0, 1],
             }}
@@ -149,7 +154,7 @@ const MissionFinish = ({ onAccept, onDecline, xp }: Props) => {
           }}
         >
           <button
-            onClick={onAccept}
+            onClick={onContinue}
             style={{
               backgroundColor: "transparent",
               borderWidth: 1,
@@ -163,9 +168,10 @@ const MissionFinish = ({ onAccept, onDecline, xp }: Props) => {
               borderColor: "#FEFEFEBB",
               color: "#FEFEFEBB",
               margin: "1em",
+              marginTop: "1.5em",
             }}
           >
-            Okay
+            Continue
           </button>
         </motion.div>
         <motion.img
