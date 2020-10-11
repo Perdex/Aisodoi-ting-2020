@@ -92,6 +92,7 @@ const App = () => {
       {/* @ts-ignore */}
       <Div100vh style={{ width: "100%", backgroundColor: "black" }}>
         <GoogleMapReact
+          key={JSON.stringify(tasks)}
           bootstrapURLKeys={{ key: process.env.REACT_APP_GOOGLE_API }}
           defaultCenter={{
             lat: 60.6382379,
