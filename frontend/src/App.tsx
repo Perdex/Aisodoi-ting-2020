@@ -24,7 +24,7 @@ const App = () => {
   const [appState, setAppState] = useState(AppState.map);
   const [task, setTask] = useState(null);
   const { data, isLoading } = useQuery("tasks", () =>
-    fetch("http://localhost:8000/tasks").then((res) => res.json()),
+    fetch(`${process.env.REACT_APP_API_URL}/tasks`).then((res) => res.json()),
   );
 
   const tasks = isLoading
