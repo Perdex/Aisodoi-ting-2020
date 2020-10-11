@@ -2,11 +2,12 @@ import React from "react";
 import { motion } from "framer-motion";
 
 type Props = {
+  xp: number;
   onAccept: () => void;
   onDecline: () => void;
 };
 
-const MissionFinish = ({ onAccept, onDecline }: Props) => {
+const MissionFinish = ({ onAccept, onDecline, xp }: Props) => {
   return (
     <div
       style={{
@@ -53,7 +54,7 @@ const MissionFinish = ({ onAccept, onDecline }: Props) => {
           <div
             style={{ color: "#FEFEFEBB", fontSize: 18, textAlign: "center" }}
           >
-            + 300 XP
+            + {xp} XP
           </div>
         </motion.div>
         <motion.div
@@ -77,6 +78,25 @@ const MissionFinish = ({ onAccept, onDecline }: Props) => {
         >
           Badger! You have succesfully transported the package.
         </motion.div>
+        <motion.div
+            animate={{
+              width: ["20%", "100%"],
+            }}
+            transition={{
+              delay: 8.0,
+              duration: 0.5,
+              ease: "easeInOut",
+              times: [0, 1],
+            }}
+            style={{
+              marginTop: "1em",
+              textAlign: "center",
+              color: "#FEFEFEBB",
+              fontSize: 22,
+            }}
+          >
+            Level Up
+          </motion.div>
         <motion.div
           animate={{
             opacity: [0, 1],

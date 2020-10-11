@@ -23,6 +23,7 @@ enum AppState {
 const App = () => {
   const [appState, setAppState] = useState(AppState.map);
   const [task, setTask] = useState(null);
+  const [futureXp, setfutureXp] = useState(250);
   const { data, isLoading } = useQuery("tasks", () =>
     fetch("http://localhost:8000/tasks").then((res) => res.json()),
   );
@@ -45,14 +46,14 @@ const App = () => {
           lat={startLat}
           lng={startLon}
           title={t.name}
-          color="red"
+          color="blue"
         />
       );
     });
   } else if (appState === AppState.travel) {
     const [lat, lon] = task.destination
-        .split(",")
-        .map((x) => Number.parseFloat(x));
+      .split(",")
+      .map((x) => Number.parseFloat(x));
     icons = (
       <MissionIcon
         // @ts-ignore
@@ -67,6 +68,7 @@ const App = () => {
   const onClickMission = (i: number) => {
     if (appState == AppState.map) {
       setAppState(AppState.mission);
+      setfutureXp((20 + Math.round(Math.random() * 25)) * 10);
       setTask(tasks[i]);
     } else if (appState == AppState.travel) setAppState(AppState.finish);
   };
@@ -95,12 +97,14 @@ const App = () => {
       </Div100vh>
       {appState === AppState.mission && (
         <MissionMenu
+          xp={futureXp}
           onDecline={() => setAppState(AppState.map)}
           onAccept={() => setAppState(AppState.travel)}
         />
       )}
       {appState === AppState.finish && (
         <MissionFinish
+          xp={futureXp}
           onDecline={() => setAppState(AppState.map)}
           onAccept={() => setAppState(AppState.travel)}
         />

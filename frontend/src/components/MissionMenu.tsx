@@ -3,11 +3,12 @@ import { motion } from "framer-motion";
 
 
 type Props = {
+  xp: number
   onAccept: () => void;
   onDecline: () => void;
 };
 
-const MissionMenu = ({ onAccept, onDecline }: Props) => {
+const MissionMenu = ({ onAccept, onDecline, xp }: Props) => {
   return (
     <div
       style={{
@@ -97,7 +98,7 @@ const MissionMenu = ({ onAccept, onDecline }: Props) => {
             fontSize: 16,
           }}
         >
-          Estimated Time: 25 minutes
+          Estimated Time: {Math.floor((10 + Math.random()*25))} minutes
         </motion.div>
         <motion.div
           animate={{
@@ -116,7 +117,7 @@ const MissionMenu = ({ onAccept, onDecline }: Props) => {
             fontSize: 16,
           }}
         >
-          Package Weight: ~ 1 kg
+          Package Weight: ~ {0.5 + Math.floor((1 + Math.random()*2)) + Math.round(Math.random())/2} kg
         </motion.div>
         <motion.div
           animate={{
@@ -135,7 +136,7 @@ const MissionMenu = ({ onAccept, onDecline }: Props) => {
             fontSize: 16,
           }}
         >
-          Reward: 300 XP
+          Reward: {xp} XP
         </motion.div>
         <motion.div
           animate={{
