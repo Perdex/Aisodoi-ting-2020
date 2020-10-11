@@ -63,6 +63,8 @@
             camera.position.z = 25;
             camera.position.y = 5;
 
+            scene.background = new THREE.Color(0x212121);
+
             const clock = new THREE.Clock();
 
             const animate = function() {
@@ -70,7 +72,7 @@
 
                 const delta = clock.getDelta();
                 // controls.update( delta );
-                house.rotateZ(3 * delta)
+                house.rotateZ(3 * delta);
                 renderer.render(scene, camera);
             };
 
