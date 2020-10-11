@@ -5,7 +5,7 @@ import MissionIcon from "./components/MissionIcon";
 import MissionMenu from "./components/MissionMenu";
 import MissionFinish from "./components/MissionFinish";
 import Div100vh from "react-div-100vh";
-
+import { useQuery } from "react-query";
 import "./index.css";
 
 const AnyReactComponent = ({ text }) => (
@@ -22,29 +22,42 @@ enum AppState {
 
 const App = () => {
   const [appState, setAppState] = useState(AppState.map);
+  const [task, setTask] = useState(null);
+  const { data, isLoading } = useQuery("tasks", () =>
+    fetch("http://localhost:8000/tasks").then((res) => res.json()),
+  );
 
-  window.onresize = function () {
-    // @ts-ignore
-    document.body.height = window.innerHeight;
-  };
+  const tasks = isLoading
+    ? []
+    : Object.entries<any>(data.objs).map(([id, obj]) => ({ id, ...obj }));
 
-  let icon;
+  let icons;
 
   if (appState === AppState.map) {
-    icon = (
-      <MissionIcon
-        // @ts-ignore
-        lat={60.6382379}
-        lng={25.3179172}
-        title="Mission 1"
-      />
-    );
+    icons = tasks.map((t) => {
+      const [startLat, startLon] = t.start
+        .split(",")
+        .map((x) => Number.parseFloat(x));
+      return (
+        <MissionIcon
+          // @ts-ignore
+          key={t.id}
+          lat={startLat}
+          lng={startLon}
+          title={t.name}
+          color="red"
+        />
+      );
+    });
   } else if (appState === AppState.travel) {
-    icon = (
+    const [lat, lon] = task.destination
+        .split(",")
+        .map((x) => Number.parseFloat(x));
+    icons = (
       <MissionIcon
         // @ts-ignore
-        lat={60.6409979}
-        lng={25.3148272}
+        lat={lat}
+        lng={lon}
         title="Mark"
         color="red"
       />
@@ -52,8 +65,10 @@ const App = () => {
   }
 
   const onClickMission = (i: number) => {
-    if (appState === AppState.map) setAppState(AppState.mission);
-    else if (appState === AppState.travel) setAppState(AppState.finish);
+    if (appState == AppState.map) {
+      setAppState(AppState.mission);
+      setTask(tasks[i]);
+    } else if (appState == AppState.travel) setAppState(AppState.finish);
   };
 
   return (
@@ -75,7 +90,7 @@ const App = () => {
           }}
           onChildClick={onClickMission}
         >
-          {icon}
+          {icons}
         </GoogleMapReact>
       </Div100vh>
       {appState === AppState.mission && (

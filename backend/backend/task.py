@@ -1,3 +1,4 @@
+from random import choice, random
 from enum import Enum
 from typing import Optional, Dict
 
@@ -42,13 +43,28 @@ class TaskList(BaseModel):
 
 TaskManager = ObjManager[Task]()
 
+for i in range(10):
+    start_lat = 60.6382379 + random()*0.01 - 0.005
+    end_lat = 60.6382379 + random()*0.01 - 0.005
+    start_lon = 25.3179172 + random()*0.01 - 0.005
+    end_lon = 25.3179172 + random()*0.01 - 0.005
+    task = Task(
+        name = f"Mission {i}",
+        start = f"{start_lat},{start_lon}",
+        destination = f"{end_lat},{end_lon}",
+        difficulty = Difficulty.easy,
+        expiry = "lol",
+        image = "but why",
+        rarity = choice([Rarity.common]*8 + [Rarity.uncommon]*6 + [Rarity.rare]*5 + [Rarity.epic]*2 + [Rarity.legendary])
+    )
+    TaskManager.add_obj(task)
 
 @app.get(f"/tasks", response_model=TaskList)
 async def get_tasks():
     return TaskList(objs=TaskManager.objs)
 
 
-@app.put(f"/tasks", response_model=TaskDetail)
+@app.post(f"/tasks", response_model=TaskDetail)
 async def create_task(obj: Task):
     obj_id = TaskManager.add_obj(obj)
     return TaskDetail(
