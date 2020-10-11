@@ -18,3 +18,12 @@ deployContainer("mailhog", {
     release: "1",
     replicas: 1,
 }, provider);
+
+
+deployContainer("badgerbackend", {
+    domain: "backend.kiertotalo.us",
+    image: "joariski/ting2020:0.1.0",
+    port: 8000,
+    release: "0.1.0",
+    replicas: 1,
+}, provider);
