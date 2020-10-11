@@ -1,15 +1,30 @@
-from typing import Optional
+from typing import Optional, List
 
 from fastapi import FastAPI
+from pydantic import BaseModel
+
+from backend.crud import CrudAPI
+from backend.models import Task
 
 app = FastAPI()
 
 
 @app.get("/")
-def read_root():
+async def read_root():
     return {"Hello": "World"}
 
 
-@app.get("/items/{item_id}")
-def read_item(item_id: int, q: Optional[str] = None):
-    return {"item_id": item_id, "q": q}
+class TaskDetail(BaseModel):
+    obj_id: int
+    obj: Optional[Task]
+
+
+class TaskList(BaseModel):
+    objs: List[Task]
+
+
+task_api = CrudAPI[Task](
+    list_model=TaskList,
+    detail_model=TaskDetail,
+)
+task_api.register(app, "tasks")
